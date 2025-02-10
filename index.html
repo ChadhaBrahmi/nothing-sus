@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lemme hack you pleasee</title>
+    <link rel="icon" type="image/jpeg" href="icon.jpeg">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #577BC1;
+            color: white;
+        }
+        .login-box {
+            background: #000957;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 8px;
+            width: 80%;
+        }
+        button {
+            background: #0B192C;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        <input type="email" placeholder="Enter your email" id="email">
+        <input type="password" placeholder="Enter your password" id="password" onclick="checkPopup()">
+        <button onclick="submitForm()">submit</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <p id="popup-text"></p>
+        <button id="yes-btn" onclick="handleResponse(true)">Yes</button>
+        <button id="no-btn" onclick="handleResponse(false)">No</button>
+    </div>
+
+    <div class="popup" id="thankPopup">
+        <p>thaaaaaaaaaaaaaaankkkkkk youuuuu</p>
+    </div>
+
+    <script>
+        let step = 0;
+        let userSaidYes = false;
+        let askedOnce = false;
+        
+        function checkPopup() {
+            if (!userSaidYes && !askedOnce) {
+                showPopup(0);
+                askedOnce = true;
+            }
+        }
+
+        function showPopup(stage) {
+            step = stage;
+            let messages = [
+                "ey listen imma come straight, I'm interested in hacking you but I am new to this u see, so would u please be nice and type ur real email password down there??",
+                "aw cmon man, jussst say yes, its ma first time tryna hack and all, help me here ..",
+                "jeez, FINE, not like I was thaaaat interested in stalkin ya anyways ugh"
+            ];
+            document.getElementById("popup-text").innerText = messages[step];
+            document.getElementById("popup").style.display = "block";
+            
+            if (step === 2) {
+                document.getElementById("yes-btn").style.display = "none";
+                document.getElementById("no-btn").style.display = "none";
+                document.getElementById("popup").innerHTML += '<br><button onclick="location.reload()">Refresh and try again maybe ull change ur mind</button>';
+            }
+        }
+
+        function handleResponse(answer) {
+            if (answer) {
+                userSaidYes = true;
+                document.getElementById("popup").style.display = "none";
+            } else if (step < 2) {
+                showPopup(step + 1);
+            } else {
+                document.getElementById("popup").style.display = "none";
+            }
+        }
+
+        function submitForm() {
+            if (userSaidYes) {
+                document.getElementById("thankPopup").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
